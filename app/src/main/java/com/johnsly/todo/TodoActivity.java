@@ -1,6 +1,7 @@
 package com.johnsly.todo;
 
 import android.annotation.TargetApi;
+import android.graphics.Paint;
 import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -34,6 +36,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.ParseQuery;
@@ -42,7 +45,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TodoActivity extends ActionBarActivity {
+public class TodoActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
     private EditText meditText;
     private ListView mListView;
     private TaskAdapter myAdapter;
@@ -57,6 +60,7 @@ public class TodoActivity extends ActionBarActivity {
 
         myAdapter = new TaskAdapter(this, new ArrayList<Task>());
         mListView.setAdapter(myAdapter);
+        mListView.setOnItemClickListener(this);
 
         updateData();
 
@@ -112,5 +116,21 @@ public class TodoActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Task task = myAdapter.getItem(position);
+        TextView taskDescription = (TextView) view.findViewById(R.id.task_description);
+
+        task.setCompleted(!task.isCompleted());
+
+        if(task.isCompleted()){
+            taskDescription.setPaintFlags(taskDescription.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }else{
+            taskDescription.setPaintFlags(taskDescription.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+        }
+
+        task.saveEventually();
     }
 }
