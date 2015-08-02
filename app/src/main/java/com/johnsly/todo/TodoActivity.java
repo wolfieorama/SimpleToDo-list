@@ -55,6 +55,7 @@ public class TodoActivity extends ActionBarActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo);
 
+//assign input variables
         meditText = (EditText) findViewById(R.id.editText);
         mListView = (ListView) findViewById(R.id.listView);
 
@@ -67,7 +68,7 @@ public class TodoActivity extends ActionBarActivity implements AdapterView.OnIte
     }
 
 
-
+//checking if the text input isnt empty ,then pass datat to parse db
     public void createTask(View v) {
         if (meditText.getText().length() > 0) {
             Task t = new Task();
@@ -80,9 +81,11 @@ public class TodoActivity extends ActionBarActivity implements AdapterView.OnIte
     }
 
 
-
+//Querying parse
     public void updateData(){
         ParseQuery<Task> query = ParseQuery.getQuery(Task.class);
+        //adding a local cache to enable faster loading
+        query.setCachePolicy(ParseQuery.CachePolicy.CACHE_THEN_NETWORK);
         query.findInBackground(new FindCallback<Task>() {
 
             @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -118,6 +121,7 @@ public class TodoActivity extends ActionBarActivity implements AdapterView.OnIte
         return super.onOptionsItemSelected(item);
     }
 
+    //implementing the strikethro
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Task task = myAdapter.getItem(position);
