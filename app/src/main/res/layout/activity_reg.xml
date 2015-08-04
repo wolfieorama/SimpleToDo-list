@@ -20,7 +20,7 @@
             android:layout_gravity="center_horizontal"
             android:text="Username "
             android:layout_weight="0.09"
-            android:textSize="50dp" />
+            android:textSize="25dp" />
 
         <EditText
             android:layout_width="match_parent"
@@ -32,10 +32,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Pasword"
+            android:text="Password"
             android:id="@+id/textView2"
             android:layout_weight="0.09"
-            android:textSize="50dp" />
+            android:textSize="25dp" />
 
         <EditText
             android:layout_width="match_parent"
