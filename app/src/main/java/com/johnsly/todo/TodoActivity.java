@@ -1,6 +1,7 @@
 package com.johnsly.todo;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
@@ -61,6 +62,13 @@ public class TodoActivity extends ActionBarActivity implements AdapterView.OnIte
         meditText = (EditText) findViewById(R.id.editText);
         mListView = (ListView) findViewById(R.id.listView);
 
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if(currentUser == null){
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         myAdapter = new TaskAdapter(this, new ArrayList<Task>());
         mListView.setAdapter(myAdapter);
         mListView.setOnItemClickListener(this);
@@ -114,18 +122,17 @@ public class TodoActivity extends ActionBarActivity implements AdapterView.OnIte
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_logout:
+                ParseUser.logOut();
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
         }
-
-        return super.onOptionsItemSelected(item);
+        return false;
     }
+
 
     //implementing the strikethro
     @Override

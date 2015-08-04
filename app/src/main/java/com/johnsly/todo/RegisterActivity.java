@@ -51,11 +51,30 @@ public class RegisterActivity extends Activity {
                 } else {
                     // Sign up didn't succeed. Look at the ParseException
                     // to figure out what went wrong
+                    switch(e.getCode()){
+                        case ParseException.USERNAME_TAKEN:
+                            merrorfield.setText("Sorry, this username has already been taken.");
+                            break;
+                        case ParseException.USERNAME_MISSING:
+                            merrorfield.setText("Sorry, you must supply a username to register.");
+                            break;
+                        case ParseException.PASSWORD_MISSING:
+                            merrorfield.setText("Sorry, you must supply a password to register.");
+                            break;
+                        default:
+                            merrorfield.setText(e.getLocalizedMessage());
+                    }
                     v.setEnabled(true);
                 }
             }
         });
 
+    }
+
+    public void showLogin(View v) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }
