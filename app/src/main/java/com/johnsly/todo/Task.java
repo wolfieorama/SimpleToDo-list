@@ -2,6 +2,7 @@ package com.johnsly.todo;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 /**
  * Created by root on 8/2/15.
@@ -27,5 +28,9 @@ public class Task extends ParseObject {
 
     public void setDescription(String description){
         put("description", description);
+    }
+
+    public void setUser(ParseUser currentuser) {
+        put("user",currentuser);
     }
 }

@@ -17,6 +17,7 @@ import android.widget.ListView;
 
 import com.parse.FindCallback;
 import com.parse.Parse;
+import com.parse.ParseACL;
 import com.parse.ParseAnalytics;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
@@ -40,6 +41,7 @@ import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +74,8 @@ public class TodoActivity extends ActionBarActivity implements AdapterView.OnIte
     public void createTask(View v) {
         if (meditText.getText().length() > 0) {
             Task t = new Task();
+            t.setACL(new ParseACL(ParseUser.getCurrentUser()));
+            t.setUser(ParseUser.getCurrentUser());
             t.setDescription(meditText.getText().toString());
             t.setCompleted(false);
             t.saveEventually();
@@ -84,6 +88,8 @@ public class TodoActivity extends ActionBarActivity implements AdapterView.OnIte
 //Querying parse
     public void updateData(){
         ParseQuery<Task> query = ParseQuery.getQuery(Task.class);
+        //making tasks belong to the users who created them
+        query.whereEqualTo("user", ParseUser.getCurrentUser());
         //adding a local cache to enable faster loading
         query.setCachePolicy(ParseQuery.CachePolicy.CACHE_THEN_NETWORK);
         query.findInBackground(new FindCallback<Task>() {
