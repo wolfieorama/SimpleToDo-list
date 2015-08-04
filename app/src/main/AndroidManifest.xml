@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.johnsly.todo" >
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="Todo"
-        android:theme="@style/AppTheme"
-        android:name=".MyApplication">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".TodoActivity"
             android:label="Todo" >
@@ -20,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".login"
             android:label="Todo" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,5 +38,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <!--<activity-->
+            <!--android:name=".login"-->
+            <!--android:label="@string/title_activity_login" >-->
+        <!--</activity>-->
     </application>
+
 </manifest>

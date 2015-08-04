@@ -72,7 +72,7 @@ public class RegisterActivity extends Activity {
     }
 
     public void showLogin(View v) {
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(this, login.class);
         startActivity(intent);
         finish();
     }

@@ -64,7 +64,7 @@ public class TodoActivity extends ActionBarActivity implements AdapterView.OnIte
 
         ParseUser currentUser = ParseUser.getCurrentUser();
         if(currentUser == null){
-            Intent intent = new Intent(this, LoginActivity.class);
+            Intent intent = new Intent(this, login.class);
             startActivity(intent);
             finish();
         }
@@ -125,7 +125,7 @@ public class TodoActivity extends ActionBarActivity implements AdapterView.OnIte
         switch (item.getItemId()) {
             case R.id.action_logout:
                 ParseUser.logOut();
-                Intent intent = new Intent(this, LoginActivity.class);
+                Intent intent = new Intent(this, login.class);
                 startActivity(intent);
                 finish();
                 return true;
